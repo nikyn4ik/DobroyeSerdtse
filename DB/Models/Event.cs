@@ -11,12 +11,18 @@ namespace DB.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Path { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
         public string Time { get; set; }
         public string Location { get; set; }
-
+        public ICollection<string> ImagePaths { get; set; }
+        public ICollection<EventImage> Images { get; set; }
         public ICollection<EventRegistration> EventRegistrations { get; set; }
         public ICollection<Feedback> Feedbacks { get; set; }
+        public Event()
+        {
+            ImagePaths = new List<string>();
+        }
     }
 }

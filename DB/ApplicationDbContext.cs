@@ -10,6 +10,7 @@ namespace DB
         public DbSet<Event> Events { get; set; }
         public DbSet<EventRegistration> EventRegistrations { get; set; }
         public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<EventImage> EventImages { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Socium;Trusted_Connection=True;");

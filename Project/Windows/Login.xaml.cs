@@ -9,9 +9,17 @@ namespace Project.Windows
         public Login()
         {
             InitializeComponent();
+            PasswordEntry.Completed += OnEnterPressed;
         }
-
         private async void OnLoginButtonClicked(object sender, EventArgs e)
+        {
+            await PerformLogin();
+        }
+        private async void OnEnterPressed(object sender, EventArgs e)
+        {
+            await PerformLogin();
+        }
+        private async Task PerformLogin()
         {
             using (var context = new ApplicationDbContext())
             {
@@ -26,6 +34,7 @@ namespace Project.Windows
                 }
 
                 var user = await context.Users
+                    .Include(u => u.Role)
                     .FirstOrDefaultAsync(u => u.Login == login && u.Password == password);
 
                 if (user == null)
@@ -36,7 +45,7 @@ namespace Project.Windows
                 }
 
                 await DisplayAlert("”спех", "¬ход выполнен успешно", "OK");
-                await Navigation.PushAsync(new Menu());
+                await Navigation.PushAsync(new Menu(user));
             }
         }
 

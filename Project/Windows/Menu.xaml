@@ -1,12 +1,57 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Project.Windows.Menu"
-             Title="Menu">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             x:Class="Project.Windows.Menu">
+    <VerticalStackLayout Padding="30">
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+            <Label Text="Муниципальное бюджетное учреждение Городской молодежный центр 'Социум'"
+                   FontSize="16"
+                   TextColor="Black"
+                   HorizontalOptions="StartAndExpand"
+                   VerticalOptions="Center" />
+            <Label x:Name="UserFullNameLabel"
+                   FontSize="16"
+                   TextColor="Black"
+                   HorizontalOptions="End"
+                   VerticalOptions="Center" />
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="Center">
+            <Frame BackgroundColor="#bde5f0"
+                   CornerRadius="10"
+                   Padding="0"
+                   Margin="0,20,0,20"
+                   HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal" Padding="5" HorizontalOptions="FillAndExpand">
+                    <Image Source="search_icon.png"
+                           WidthRequest="20"
+                           HeightRequest="20"
+                           VerticalOptions="Center"
+                           Margin="5,0,0,0" />
+                    <SearchBar x:Name="EventSearchBar"
+                               Placeholder="Найти..."
+                               BackgroundColor="#bde5f0"
+                               TextColor="Black"
+                               HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+
+        <CollectionView x:Name="EventListView" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout Margin="10">
+                        <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold" />
+                        <Label Text="{Binding Description}" />
+                        <Label Text="{Binding Date, StringFormat='Дата: {0:dd MMM yyyy}'}" />
+                        <Label Text="{Binding Time, StringFormat='Время: {0}'}" />
+                        <Label Text="{Binding Location, StringFormat='Место: {0}'}" />
+                        <Button Text="Откликнуться" Clicked="OnRegisterEventClicked" />
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button x:Name="AddEventButton" Text="Добавить мероприятие" IsVisible="False" Clicked="OnAddEventClicked" />
     </VerticalStackLayout>
 </ContentPage>
