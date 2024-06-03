@@ -1,18 +1,37 @@
-using DB.Models;
-using DB;
-namespace Project.AddEdit;
+using Database;
+using Database.Models;
 
-public partial class AddEventPage : ContentPage
+namespace Project.AddEdit
 {
-    private string _selectedImagePath;
-    private Event newEvent;
-    public AddEventPage()
-	{
-        InitializeComponent();
-    }
-    private string ImageFolderPath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Image ");
-    private async void OnSelectImageClicked(object sender, EventArgs e)
+    public partial class AddEventPage : ContentPage
     {
+        private Event newEvent = new Event();
+        private string _selectedImagePath;
+        private string ImageFolderPath => Path.Combine(AppContext.BaseDirectory, "Images");
+
+        public AddEventPage()
+        {
+            InitializeComponent();
+            LoadImages();
+        }
+
+        private void LoadImages()
+        {
+            var imageFolderPath = ImageFolderPath;
+
+            if (Directory.Exists(imageFolderPath))
+            {
+                var imageFiles = Directory.GetFiles(imageFolderPath);
+                foreach (var imagePath in imageFiles)
+                {
+                    var image = new Image { Source = ImageSource.FromFile(imagePath) };
+                    image.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(() => OnImageSelected(imagePath)) });
+                    ImageStackLayout.Children.Add(image);
+                }
+            }
+        }
+
+        private async void OnSelectImageClicked(object sender, EventArgs e)
         {
             try
             {
@@ -20,47 +39,54 @@ public partial class AddEventPage : ContentPage
                 if (result != null)
                 {
                     _selectedImagePath = result.FullPath;
-
-                    string fileName = Path.GetFileName(_selectedImagePath);
-                    string destinationPath = Path.Combine(ImageFolderPath, fileName);
-
-                    File.Copy(_selectedImagePath, destinationPath, true);
-
-                    _selectedImagePath = destinationPath;
-
-                    EventImage eventImage = new EventImage
-                    {
-                        Path = _selectedImagePath
-                    };
-                    newEvent.Images.Add(eventImage);
-
                     EventImage.Source = ImageSource.FromFile(_selectedImagePath);
                 }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Ошибка", $"Не удалось выбрать изображение: {ex.Message}", "OK");
+            }
         }
-        catch (Exception ex)
-        {
-            await DisplayAlert("Ошибка", $"Не удалось выбрать изображение: {ex.Message}", "OK");
-        }
-        }
-    }
 
-    private async void OnAddEventButtonClicked(object sender, EventArgs e)
-    {
-        using (var context = new ApplicationDbContext())
+        private async void OnImageSelected(string selectedImagePath)
         {
-            var newEvent = new Event
-        {
-            Name = NameEntry.Text,
-            Description = DescriptionEditor.Text,
-            Date = DatePicker.Date,
-            Time = TimePicker.Time.ToString(@"hh\:mm"),
-            Location = LocationEntry.Text
-        };
-
-        context.Events.Add(newEvent);
-        await context.SaveChangesAsync();
-        await DisplayAlert("Успех", "Мероприятие добавлено", "OK");
-        await Navigation.PopAsync();
+            try
+            {
+                _selectedImagePath = selectedImagePath;
+                await DisplayAlert("Успех", "Изображение выбрано", "OK");
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Ошибка", $"Не удалось выбрать изображение: {ex.Message}", "OK");
+            }
         }
-    }
+
+        private async void OnAddEventButtonClicked(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(NameEntry.Text) || string.IsNullOrWhiteSpace(DescriptionEditor.Text) ||
+                DatePicker.Date == null || TimePicker.Time == null || string.IsNullOrWhiteSpace(_selectedImagePath))
+            {
+                await DisplayAlert("Ошибка", "Заполните все обязательные поля", "OK");
+                return;
+            }
+
+            using (var context = new ApplicationContext())
+            {
+                var newEvent = new Event
+                {
+                    Title = NameEntry.Text,
+                    Description = DescriptionEditor.Text,
+                    Date = DatePicker.Date,
+                    Location = LocationEntry.Text,
+                    ImagePath = _selectedImagePath
+                };
+
+                context.Events.Add(newEvent);
+                await context.SaveChangesAsync();
+                await DisplayAlert("Успех", "Мероприятие добавлено", "OK");
+                await Navigation.PopAsync();
+            
+            }}
+        }
 }
+

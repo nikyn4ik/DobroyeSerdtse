@@ -11,5 +11,6 @@
         <Image x:Name="EventImage" Source="placeholder_image.png" Aspect="AspectFit" HeightRequest="200" />
         <Button Text="Выбрать изображение" Clicked="OnSelectImageClicked" />
         <Button Text="Добавить" Clicked="OnAddEventButtonClicked" />
+        <StackLayout x:Name="ImageStackLayout"></StackLayout>
     </VerticalStackLayout>
 </ContentPage>

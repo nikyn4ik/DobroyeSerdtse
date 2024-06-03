@@ -1,5 +1,5 @@
-using DB;
-using DB.Models;
+using Database;
+using Database.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Project.Windows
@@ -14,7 +14,7 @@ namespace Project.Windows
 
         private async void RegisterB(object sender, EventArgs e)
         {
-            using (var context = new ApplicationDbContext())
+            using (var context = new ApplicationContext())
             {
                 string lastName = LastNameEntry.Text;
                 string firstName = FirstNameEntry.Text;
@@ -41,7 +41,7 @@ namespace Project.Windows
                     return;
                 }
                 var existingUser = await context.Users
-        .FirstOrDefaultAsync(u => u.Login == login || u.Email == email);
+        .FirstOrDefaultAsync(u => u.UserName == login || u.Email == email);
 
                 if (existingUser != null)
                 {
@@ -54,7 +54,7 @@ namespace Project.Windows
                     LastName = lastName,
                     FirstName = firstName,
                     MiddleName = middleName,
-                    Login = login,
+                    UserName = login,
                     Email = email,
                     Password = password,
                     PhoneNumber = phoneNumber,

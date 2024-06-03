@@ -24,7 +24,7 @@
                     Margin="0,20,0,0"
                     Clicked="OnLoginButtonClicked"/>
 
-            <Button Text="Зарегистрироваться"
+            <Button Text="Нет аккаунта"
                     FontSize="18"
                     TextColor="White"
                     BackgroundColor="#2196F3"

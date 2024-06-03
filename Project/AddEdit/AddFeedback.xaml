@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Project.AddEdit.AddFeedback">
+    <VerticalStackLayout Padding="20">
+        <Label Text="Оцените мероприятие от 1 до 5:"
+               FontSize="16"
+               VerticalOptions="CenterAndExpand" />
+        <Slider x:Name="RatingSlider"
+                Minimum="1"
+                Maximum="5"
+                Value="1"
+                VerticalOptions="CenterAndExpand" />
+        <Label Text="{Binding Source={x:Reference RatingSlider}, Path=Value, StringFormat='{0:F1}'}"
+               FontSize="14"
+               VerticalOptions="CenterAndExpand" />
+        <Label Text="Что понравилось:"
+               FontSize="16"
+               VerticalOptions="CenterAndExpand" />
+        <Editor x:Name="LikesEditor"
+                HeightRequest="100"
+                Placeholder="Напишите, что понравилось"
+                VerticalOptions="CenterAndExpand" />
+        <Label Text="Что можно было бы улучшить:"
+               FontSize="16"
+               VerticalOptions="CenterAndExpand" />
+        <Editor x:Name="ImprovementsEditor"
+                HeightRequest="100"
+                Placeholder="Напишите, что можно улучшить"
+                VerticalOptions="CenterAndExpand" />
+        <Button Text="Оставить отзыв"
+                Clicked="OnLeaveFeedbackClicked"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="FillAndExpand" />
+    </VerticalStackLayout>
+</ContentPage>

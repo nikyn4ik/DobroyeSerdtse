@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace DB.Migrations
+namespace Database.Migrations
 {
     /// <inheritdoc />
     public partial class Second : Migration
@@ -11,18 +11,18 @@ namespace DB.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "ImagePaths",
+                name: "ImagePath",
                 table: "Events",
                 type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: "[]");
+                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "ImagePaths",
+                name: "ImagePath",
                 table: "Events");
         }
     }

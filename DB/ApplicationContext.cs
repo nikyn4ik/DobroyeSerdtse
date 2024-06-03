@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DB
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationContext : DbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
@@ -13,6 +13,7 @@ namespace DB
         public DbSet<EventImage> EventImages { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //optionsBuilder.UseSqlServer(@"Server=NIKYN;Database=Socium;Trusted_Connection=True;TrustServerCertificate=True;");
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Socium;Trusted_Connection=True;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
