@@ -41,12 +41,11 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <HorizontalStackLayout Margin="10">
-                        <Image Source="{Binding Path}" Aspect="AspectFit" HeightRequest="100" WidthRequest="100" />
+                        <Image Source="{Binding ImagePath}" Aspect="AspectFit" HeightRequest="100" WidthRequest="100" />
                         <VerticalStackLayout Margin="10">
-                            <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold" />
+                            <Label Text="{Binding Title}" FontSize="20" FontAttributes="Bold" />
                             <Label Text="{Binding Description}" />
                             <Label Text="{Binding Date, StringFormat='Дата: {0:dd MMM yyyy}'}" />
-                            <Label Text="{Binding Time, StringFormat='Время: {0}'}" />
                             <Label Text="{Binding Location, StringFormat='Место: {0}'}" />
                             <Button Text="Добавить мероприятие" IsVisible="{Binding IsAdmin}" Clicked="OnAddEventClicked" />
                             <Button Text="Откликнуться" Clicked="OnRegisterEventClicked" IsVisible="{Binding IsNotAdmin}" />
