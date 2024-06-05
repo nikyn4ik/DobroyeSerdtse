@@ -3,6 +3,7 @@ using Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Project.AddEdit;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Project.Windows
 {
@@ -11,6 +12,7 @@ namespace Project.Windows
         private User _currentUser;
         public ObservableCollection<EventView> Events { get; set; }
         public bool IsAdmin { get; set; }
+
         public Menu(User user)
         {
             InitializeComponent();
@@ -19,7 +21,10 @@ namespace Project.Windows
             UserFullNameLabel.Text = user.FullName;
 
             LoadEvents();
+
+            this.BindingContext = this; // Устанавливаем DataContext
         }
+
         private void LoadEvents()
         {
             using (var context = new ApplicationContext())
@@ -30,13 +35,15 @@ namespace Project.Windows
                     events.Select(e => new EventView(e, IsAdmin))
                 );
 
-                EventListView.ItemsSource = Events;
+                EventList.ItemsSource = Events;
             }
         }
+
         private List<Event> GetEvents(ApplicationContext context)
         {
             return context.Events.Include(e => e.UserEvents).ThenInclude(ue => ue.User).ToList();
         }
+
         private async void OnRegisterEventClicked(object sender, EventArgs e)
         {
             var button = sender as Button;
@@ -57,6 +64,7 @@ namespace Project.Windows
                 }
             }
         }
+
         private async void OnEditEventClicked(object sender, EventArgs e)
         {
             var button = sender as Button;
@@ -90,6 +98,7 @@ namespace Project.Windows
                 }
             }
         }
+
         private async void OnViewFeedbacksClicked(object sender, EventArgs e)
         {
             var button = sender as Button;
@@ -106,14 +115,20 @@ namespace Project.Windows
                 }
             }
         }
+
         private async void OnLeaveFeedbackClicked(object sender, EventArgs e)
         {
-            //var button = sender as Button;
-            //var eventItem = button?.BindingContext as EventView;
-            //if (eventItem != null)
-            //{
-            //    await Navigation.PushAsync(new LeaveFeedback(eventItem.Id));
-            //}
+            var button = sender as Button;
+            var eventItem = button?.BindingContext as EventView;
+            using (var context = new ApplicationContext())
+            {
+                var eventEntity = await context.Events.FindAsync(eventItem.Id);
+            if (eventItem != null)
+            {
+                await Navigation.PushAsync(new LeaveFeedback(eventEntity));
+
+                }
+            }
         }
         private async void OnAddEventClicked(object sender, EventArgs e)
         {

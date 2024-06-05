@@ -1,12 +1,12 @@
 using Database;
 using Database.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace Project.Windows
 {
     public partial class Registration : ContentPage
     {
-
         public Registration()
         {
             InitializeComponent();
@@ -26,9 +26,9 @@ namespace Project.Windows
                 string confirmPassword = ConfirmPasswordEntry.Text;
 
                 if (string.IsNullOrWhiteSpace(lastName) || string.IsNullOrWhiteSpace(firstName) ||
-        string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(phoneNumber) ||
-        string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password) ||
-        string.IsNullOrWhiteSpace(confirmPassword))
+                    string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(phoneNumber) ||
+                    string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password) ||
+                    string.IsNullOrWhiteSpace(confirmPassword))
                 {
                     ErrorLabel.Text = "Все поля должны быть заполнены.";
                     ErrorLabel.IsVisible = true;
@@ -40,8 +40,9 @@ namespace Project.Windows
                     ErrorLabel.IsVisible = true;
                     return;
                 }
+
                 var existingUser = await context.Users
-        .FirstOrDefaultAsync(u => u.UserName == login || u.Email == email);
+                    .FirstOrDefaultAsync(u => u.UserName == login || u.Email == email);
 
                 if (existingUser != null)
                 {
@@ -49,6 +50,7 @@ namespace Project.Windows
                     ErrorLabel.IsVisible = true;
                     return;
                 }
+
                 var newUser = new User
                 {
                     LastName = lastName,
@@ -56,16 +58,17 @@ namespace Project.Windows
                     MiddleName = middleName,
                     UserName = login,
                     Email = email,
-                    Password = password,
                     PhoneNumber = phoneNumber,
-                    RoleId = 2 
+                    RoleId = 2
                 };
 
-                context.Users.Add(newUser);
-            await context.SaveChangesAsync();
+                newUser.SetP(password); 
 
-            await DisplayAlert("Успех", "Регистрация прошла успешно", "OK");
+                context.Users.Add(newUser);
+                await context.SaveChangesAsync();
+
+                await DisplayAlert("Успех", "Регистрация прошла успешно", "OK");
+            }
         }
-    }
     }
 }

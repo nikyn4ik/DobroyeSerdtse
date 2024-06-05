@@ -5,11 +5,13 @@
              BackgroundColor="White">
     <ScrollView>
         <StackLayout Padding="30">
-            <Label Text="Муниципальное бюджетное учреждение Городской молодежный центр 'Социум'"
-                   HorizontalOptions="Center"
-                   FontSize="16"
-                   TextColor="Black"
-                   Margin="0,20,0,40"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Image Source="icon.png" WidthRequest="50" HeightRequest="50" VerticalOptions="Center" Margin="0,0,10,0" />
+                <Label Text="Муниципальное бюджетное учреждение Городской молодежный центр &quot;Социум&quot;"
+                       FontSize="20"
+                       TextColor="Black"
+                       VerticalOptions="Center"/>
+            </StackLayout>
 
             <Label Text="Логин" FontSize="18"/>
             <Entry x:Name="LoginEntry" Placeholder="Введите логин" FontSize="18"/>
@@ -20,17 +22,16 @@
             <Button Text="Войти"
                     FontSize="18"
                     TextColor="White"
-                    BackgroundColor="#4CAF50"
+                    BackgroundColor="#000099"
                     Margin="0,20,0,0"
                     Clicked="OnLoginButtonClicked"/>
 
             <Button Text="Нет аккаунта"
                     FontSize="18"
-                    TextColor="White"
-                    BackgroundColor="#2196F3"
+                    BackgroundColor="White"
+                    TextColor="Black"
                     Margin="0,10,0,0"
                     Clicked="OnRegisterButtonClicked"/>
-
             <Label x:Name="ErrorLabel" TextColor="Red" FontSize="18" IsVisible="False"/>
         </StackLayout>
     </ScrollView>

@@ -3,14 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Project.Windows.Registration"
              BackgroundColor="White">
-
     <ScrollView>
         <StackLayout Padding="30">
-            <Label Text="Муниципальное бюджетное учреждение Городской молодежный центр 'Социум'"
-                   HorizontalOptions="Center"
-                   FontSize="16"
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Image Source="icon.png" WidthRequest="50" HeightRequest="50" VerticalOptions="Center" Margin="0,0,10,0" />
+                <Label Text="Муниципальное бюджетное учреждение Городской молодежный центр &quot;Социум&quot;"
+                   FontSize="20"
                    TextColor="Black"
-                   Margin="0,20,0,40"/>
+                   VerticalOptions="Center"/>
+            </StackLayout>
 
             <Label Text="Регистрация"
                    HorizontalOptions="Center"
@@ -46,10 +47,10 @@
             <Button Text="Зарегистрироваться"
                     FontSize="18"
                     TextColor="White"
-                    BackgroundColor="#4CAF50"
+                    BackgroundColor="#000099"
                     Margin="0,20,0,0"
                     Clicked="RegisterB"/>
-            <Label x:Name="ErrorLabel" TextColor="Red" FontSize="18" IsVisible="False"/>
+        <Label x:Name="ErrorLabel" TextColor="Red" FontSize="18" IsVisible="False"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -37,9 +37,9 @@ namespace Project.Windows
 
                 var user = await context.Users
                     .Include(u => u.Role)
-                    .FirstOrDefaultAsync(u => u.UserName == login && u.Password == password);
+                    .FirstOrDefaultAsync(u => u.UserName == login);
 
-                if (user == null)
+                if (user == null || !user.VerifyP(password))
                 {
                     ErrorLabel.Text = "Неверный логин или пароль.";
                     ErrorLabel.IsVisible = true;

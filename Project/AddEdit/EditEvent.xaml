@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Project.AddEdit.EditEvent"
-             Title="EditEvent">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Class="Project.AddEdit.EditEvent">
+    <ScrollView>
+        <StackLayout Padding="30">
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Image Source="icon.png" WidthRequest="50" HeightRequest="50" VerticalOptions="Center" Margin="0,0,10,0" />
+                <Label Text="Муниципальное бюджетное учреждение Городской молодежный центр &quot;Социум&quot;"
+                    FontSize="20"
+                    TextColor="Black"
+                    VerticalOptions="Center"/>
+            </StackLayout>
+            <VerticalStackLayout>
+                <Entry x:Name="TitleEntry" Placeholder="Название" />
+                <Editor x:Name="DescriptionEditor" Placeholder="Описание" HeightRequest="200" />
+                <DatePicker x:Name="DatePicker" />
+                <TimePicker x:Name="TimePicker" />
+                <Entry x:Name="LocationEntry" Placeholder="Место" />
+                <Image x:Name="EventImage" Source="placeholder_image.png" Aspect="AspectFit" HeightRequest="200" />
+                <Button Text="Выбрать изображение" Clicked="OnSelectImageClicked" />
+                <Button Text="Сохранить" Clicked="OnSaveEventB" />
+            </VerticalStackLayout>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
