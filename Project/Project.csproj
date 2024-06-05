@@ -124,6 +124,9 @@
 	  <MauiXaml Update="Windows\Registration.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Windows\UserProfile.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Windows\ViewFeedbacks.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

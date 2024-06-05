@@ -1,28 +1,54 @@
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using Microsoft.EntityFrameworkCore;
 using Database;
 using Database.Models;
-using Microsoft.EntityFrameworkCore;
 using Project.AddEdit;
-using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Project.Windows
 {
-    public partial class Menu : ContentPage
+    public partial class Menu : ContentPage, INotifyPropertyChanged
     {
-        private User _currentUser;
+        private readonly User _currentUser;
         public ObservableCollection<EventView> Events { get; set; }
         public bool IsAdmin { get; set; }
+        private string _fullName;
+
+        public string FullName
+        {
+            get => _fullName;
+            set
+            {
+                if (_fullName != value)
+                {
+                    _fullName = value;
+                    OnPropertyChanged(nameof(FullName));
+                }
+            }
+        }
 
         public Menu(User user)
         {
             InitializeComponent();
             _currentUser = user;
             IsAdmin = user.Role.Name == "Admin";
+            FullName = user.FullName;
             UserFullNameLabel.Text = user.FullName;
+            if (_currentUser.ImageData != null && _currentUser.ImageData.Length > 0)
+            {
+                UserPhoto.Source = ImageSource.FromStream(() => new MemoryStream(_currentUser.ImageData));
+            }
 
             LoadEvents();
 
-            this.BindingContext = this; // Устанавливаем DataContext
+            this.BindingContext = this;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void LoadEvents()
@@ -52,6 +78,14 @@ namespace Project.Windows
             {
                 using (var context = new ApplicationContext())
                 {
+                    var existingUserEvent = await context.UserEvents.FirstOrDefaultAsync(ue => ue.UserId == _currentUser.Id && ue.EventId == eventItem.Id);
+
+                    if (existingUserEvent != null)
+                    {
+                        await DisplayAlert("Ошибка", "Вы уже зарегистрированы на это мероприятие", "OK");
+                        return;
+                    }
+
                     var userEvent = new UserEvent
                     {
                         UserId = _currentUser.Id,
@@ -123,16 +157,28 @@ namespace Project.Windows
             using (var context = new ApplicationContext())
             {
                 var eventEntity = await context.Events.FindAsync(eventItem.Id);
-            if (eventItem != null)
-            {
-                await Navigation.PushAsync(new LeaveFeedback(eventEntity));
-
+                if (eventItem != null)
+                {
+                    await Navigation.PushAsync(new LeaveFeedback(eventEntity));
                 }
             }
         }
+
         private async void OnAddEventClicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AddEventPage());
+        }
+
+        private async void OnProfileB(object sender, EventArgs e)
+        {
+            try
+            {
+                await Navigation.PushAsync(new UserProfile(_currentUser));
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Database.Models
         public Role Role { get; set; }
         public ICollection<Achievement> Achievements { get; set; }
         public ICollection<UserEvent> UserEvents { get; set; }
-
+        public byte[]? ImageData { get; set; }
         public void SetP(string password)
         {
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(password);
