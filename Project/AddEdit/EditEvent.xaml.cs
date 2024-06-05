@@ -6,27 +6,21 @@ namespace Project.AddEdit
     public partial class EditEvent : ContentPage
     {
         private Event _event;
-        private ApplicationContext _context;
 
-        public EditEvent(Event eventItem)
+        public EditEvent(Event eventEntity)
         {
             InitializeComponent();
-            _context = new ApplicationContext();
-            LoadEventData(eventItem);
+            _event = eventEntity;
+            LoadEventData();
         }
 
-        private async void LoadEventData(Event eventItem)
+        private void LoadEventData()
         {
-            _event = await _context.Events.FindAsync(eventItem);
-            if (_event != null)
-            {
-                TitleEntry.Text = _event.Title;
-                DescriptionEditor.Text = _event.Description;
-                DatePicker.Date = _event.Date.Date;
-                TimePicker.Time = _event.Date.TimeOfDay;
-                LocationEntry.Text = _event.Location;
-                EventImage.Source = _event.ImagePath;
-            }
+            NameEntry.Text = _event.Title;
+            DescriptionEditor.Text = _event.Description;
+            DatePicker.Date = _event.Date;
+            LocationEntry.Text = _event.Location;
+            EventImage.Source = _event.ImagePath;
         }
 
         private async void OnSelectImageClicked(object sender, EventArgs e)
@@ -54,16 +48,22 @@ namespace Project.AddEdit
 
         private async void OnSaveEventB(object sender, EventArgs e)
         {
-            _event.Title = TitleEntry.Text;
-            _event.Description = DescriptionEditor.Text;
-            _event.Date = DatePicker.Date + TimePicker.Time;
-            _event.Location = LocationEntry.Text;
+            using (var context = new ApplicationContext())
+            {
+                var eventToUpdate = await context.Events.FindAsync(_event.Id);
+                if (eventToUpdate != null)
+                {
+                    eventToUpdate.Title = NameEntry.Text;
+                    eventToUpdate.Description = DescriptionEditor.Text;
+                    eventToUpdate.Date = DatePicker.Date;
+                    eventToUpdate.Location = LocationEntry.Text;
 
-            _context.Events.Update(_event);
-            await _context.SaveChangesAsync();
-
-            await DisplayAlert("Успех", "Мероприятие успешно обновлено", "OK");
-            await Navigation.PopAsync();
+                    context.Events.Update(eventToUpdate);
+                    await context.SaveChangesAsync();
+                    await DisplayAlert("Успех", "Изменения сохранены", "OK");
+                    await Navigation.PopAsync();
+                }
+            }
         }
     }
 }

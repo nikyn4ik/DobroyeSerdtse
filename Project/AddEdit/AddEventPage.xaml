@@ -12,16 +12,18 @@
                     VerticalOptions="Center"/>
             </StackLayout>
             <VerticalStackLayout>
-        <Entry x:Name="NameEntry" Placeholder="Название" />
-        <Editor x:Name="DescriptionEditor" Placeholder="Описание" HeightRequest="200" />
-        <DatePicker x:Name="DatePicker" />
-        <TimePicker x:Name="TimePicker" />
-        <Entry x:Name="LocationEntry" Placeholder="Место" />
-        <Image x:Name="EventImage" Source="placeholder_image.png" Aspect="AspectFit" HeightRequest="200" />
-        <Button Text="Выбрать изображение" Clicked="OnSelectImageClicked" />
-        <Button Text="Добавить" Clicked="OnAddEventButtonClicked" />
-        <StackLayout x:Name="ImageStackLayout"></StackLayout>
-    </VerticalStackLayout>
+                <Entry x:Name="NameEntry" Placeholder="Название" />
+                <Editor x:Name="DescriptionEditor" Placeholder="Описание" HeightRequest="200" />
+                <DatePicker x:Name="DatePicker" />
+                <TimePicker x:Name="TimePicker" />
+                <Entry x:Name="LocationEntry" Placeholder="Место" />
+                <Image x:Name="EventImage" Source="placeholder_image.png" Aspect="AspectFit" HeightRequest="200" />
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
+                    <Button Text="Выбрать изображение" Clicked="OnSelectImageClicked" />
+                    <Button Text="Добавить" Clicked="OnAddEventButtonClicked" />
+                </StackLayout>
+                <StackLayout x:Name="ImageStackLayout"></StackLayout>
+            </VerticalStackLayout>
         </StackLayout>
     </ScrollView>
 </ContentPage>
