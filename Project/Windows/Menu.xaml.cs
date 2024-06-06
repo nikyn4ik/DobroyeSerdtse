@@ -13,7 +13,7 @@ namespace Project.Windows
         public ObservableCollection<EventView> Events { get; set; }
         public bool IsAdmin { get; set; }
         private string _fullName;
-
+        public int UserId { get; set; }
         public string FullName
         {
             get => _fullName;
@@ -30,6 +30,7 @@ namespace Project.Windows
         public Menu(User user)
         {
             InitializeComponent();
+            UserId = user.Id;
             _currentUser = user;
             IsAdmin = user.Role.Name == "Admin";
             FullName = user.FullName;
@@ -70,7 +71,7 @@ namespace Project.Windows
             return context.Events.Include(e => e.UserEvents).ThenInclude(ue => ue.User).ToList();
         }
 
-        private async void OnRegisterEventClicked(object sender, EventArgs e)
+        private async void RegisterB(object sender, EventArgs e)
         {
             var button = sender as Button;
             var eventItem = button?.BindingContext as EventView;
@@ -99,7 +100,7 @@ namespace Project.Windows
             }
         }
 
-        private async void OnEditEventClicked(object sender, EventArgs e)
+        private async void EditEventB(object sender, EventArgs e)
         {
             var button = sender as Button;
             var eventItem = button?.BindingContext as EventView;
@@ -116,7 +117,7 @@ namespace Project.Windows
             }
         }
 
-        private async void OnViewParticipantsClicked(object sender, EventArgs e)
+        private async void ViewParticipantsB(object sender, EventArgs e)
         {
             var button = sender as Button;
             var eventItem = button?.BindingContext as EventView;
@@ -127,13 +128,13 @@ namespace Project.Windows
                     var eventEntity = await context.Events.FindAsync(eventItem.Id);
                     if (eventEntity != null)
                     {
-                        await Navigation.PushAsync(new ViewFeedbacks(eventEntity));
+                        await Navigation.PushAsync(new ViewParticipant(eventEntity));
                     }
                 }
             }
         }
 
-        private async void OnViewFeedbacksClicked(object sender, EventArgs e)
+        private async void ViewFeedbacksB(object sender, EventArgs e)
         {
             var button = sender as Button;
             var eventItem = button?.BindingContext as EventView;
@@ -144,22 +145,34 @@ namespace Project.Windows
                     var eventEntity = await context.Events.FindAsync(eventItem.Id);
                     if (eventEntity != null)
                     {
-                        await Navigation.PushAsync(new ViewFeedbacks(eventEntity));
+                        await Navigation.PushAsync(new ViewFeedbacks());
                     }
                 }
             }
         }
 
-        private async void OnLeaveFeedbackClicked(object sender, EventArgs e)
+        private async void LeaveFeedbackB(object sender, EventArgs e)
         {
             var button = sender as Button;
             var eventItem = button?.BindingContext as EventView;
-            using (var context = new ApplicationContext())
+            if (eventItem != null)
             {
-                var eventEntity = await context.Events.FindAsync(eventItem.Id);
-                if (eventItem != null)
+                using (var context = new ApplicationContext())
                 {
-                    await Navigation.PushAsync(new LeaveFeedback(eventEntity));
+                    var eventEntity = await context.Events.FindAsync(eventItem.Id);
+                    if (eventEntity != null)
+                    {
+                        var existingReview = await context.Reviews
+                                                          .FirstOrDefaultAsync(r => r.EventId == eventEntity.Id && r.UserId == _currentUser.Id);
+
+                        if (existingReview != null)
+                        {
+                            await DisplayAlert("Ошибка", "Вы уже оставили отзыв на это мероприятие", "OK");
+                            return;
+                        }
+
+                        await Navigation.PushAsync(new LeaveFeedback(eventEntity, _currentUser.Id));
+                    }
                 }
             }
         }
@@ -171,14 +184,7 @@ namespace Project.Windows
 
         private async void OnProfileB(object sender, EventArgs e)
         {
-            try
-            {
-                await Navigation.PushAsync(new UserProfile(_currentUser));
-            }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
-            }
+            await Navigation.PushAsync(new UserProfile(_currentUser));
         }
     }
 }

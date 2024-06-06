@@ -1,55 +1,42 @@
-using Microsoft.EntityFrameworkCore;
-using Database;
-using Database.Models;
 namespace Project.Windows;
+using Database;
+using Microsoft.EntityFrameworkCore;
 
 public partial class ViewFeedbacks : ContentPage
 {
-    private Event _event;
-    public ViewFeedbacks(Event eventItem)
+    public ViewFeedbacks()
     {
         InitializeComponent();
-        _event = eventItem;
-        LoadParticipants(eventItem.Id);
+        LoadReviews();
     }
-    private void LoadParticipants(int eventId)
+
+    private void LoadReviews()
     {
         using (var context = new ApplicationContext())
         {
-            var participants = context.UserEvents
-                .Where(ue => ue.EventId == eventId)
-                .Include(ue => ue.User)
-                .Select(ue => ue.User)
-                .ToList();
+            var reviews = context.Reviews
+                                 .Include(r => r.User)
+                                 .Include(r => r.Event)
+                                 .ToList();
 
-            ParticipantsList.ItemsSource = participants;
-        }
-    }
-    private async void OnRemoveP(object sender, EventArgs e)
-    {
-        var button = sender as Button;
-        var user = button?.BindingContext as User;
-        if (user != null)
-        {
-            var confirm = await DisplayAlert("Удаление участника", $"Вы уверены, что хотите удалить участника {user.FullName} с мероприятия?", "Да", "Отмена");
-            if (confirm)
+            var reviewViews = reviews.Select(r => new ReviewView
             {
-                using (var context = new ApplicationContext())
-                {
-                    var userEvent = await context.UserEvents.FirstOrDefaultAsync(ue => ue.EventId == _event.Id && ue.UserId == user.Id);
-                    if (userEvent != null)
-                    {
-                        context.UserEvents.Remove(userEvent);
-                        await context.SaveChangesAsync();
-                        await DisplayAlert("Успех", $"Участник {user.FullName} успешно удален с мероприятия", "OK");
-                        LoadParticipants(_event.Id);
-                    }
-                    else
-                    {
-                        await DisplayAlert("Ошибка", $"Участник {user.FullName} не найден на мероприятии", "OK");
-                    }
-                }
-            }
+                UserFullName = $"{r.User.LastName} {r.User.FirstName} {r.User.MiddleName}",
+                EventName = r.Event.Title,
+                Rating = r.Rating,
+                Content = r.Content,
+                Date = r.Date
+            });
+
+            ReviewsList.ItemsSource = reviewViews;
         }
     }
+}
+public class ReviewView
+{
+    public string UserFullName { get; set; }
+    public string EventName { get; set; }
+    public int Rating { get; set; }
+    public string Content { get; set; }
+    public DateTime Date { get; set; }
 }

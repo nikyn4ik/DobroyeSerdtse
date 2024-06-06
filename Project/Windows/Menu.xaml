@@ -72,11 +72,11 @@
                             <Label Text="{Binding Location, StringFormat='Место: {0}'}" FontSize="18" />
                         </StackLayout>
                         <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Margin="10" VerticalOptions="End">
-                            <Button Text="Откликнуться" Clicked="OnRegisterEventClicked" IsVisible="{Binding IsNotAdmin}" BackgroundColor="#000099" FontSize="16" HorizontalOptions="FillAndExpand" Margin="0,0,5,0" />
-                            <Button Text="Оставить отзыв" Clicked="OnLeaveFeedbackClicked" IsVisible="{Binding IsNotAdmin}" BackgroundColor="#000099" FontSize="16" HorizontalOptions="FillAndExpand" Margin="0,0,5,0" />
-                            <Button Text="Редактировать" Clicked="OnEditEventClicked" IsVisible="{Binding IsAdmin}" BackgroundColor="#000099" FontSize="16" HorizontalOptions="FillAndExpand" Margin="0,0,5,0" />
-                            <Button Text="Участники" Clicked="OnViewParticipantsClicked" IsVisible="{Binding IsAdmin}" BackgroundColor="#000099" FontSize="16" HorizontalOptions="FillAndExpand" Margin="0,0,5,0" />
-                            <Button Text="Отзывы" Clicked="OnViewFeedbacksClicked" IsVisible="{Binding IsAdmin}" BackgroundColor="#000099" FontSize="16" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
+                            <Button Text="Откликнуться" Clicked="RegisterB" IsVisible="{Binding IsNotAdmin}" BackgroundColor="#000099" FontSize="16" HorizontalOptions="FillAndExpand" Margin="0,0,5,0" />
+                            <Button Text="Оставить отзыв" Clicked="LeaveFeedbackB" IsVisible="{Binding IsNotAdmin}" BackgroundColor="#000099" FontSize="16" HorizontalOptions="FillAndExpand" Margin="0,0,5,0" />
+                            <Button Text="Редактировать" Clicked="EditEventB" IsVisible="{Binding IsAdmin}" BackgroundColor="#000099" FontSize="16" HorizontalOptions="FillAndExpand" Margin="0,0,5,0" />
+                            <Button Text="Участники" Clicked="ViewParticipantsB" IsVisible="{Binding IsAdmin}" BackgroundColor="#000099" FontSize="16" HorizontalOptions="FillAndExpand" Margin="0,0,5,0" />
+                            <Button Text="Отзывы" Clicked="ViewFeedbacksB" IsVisible="{Binding IsAdmin}" BackgroundColor="#000099" FontSize="16" HorizontalOptions="FillAndExpand" Margin="0,0,0,0" />
                         </StackLayout>
                     </Grid>
                 </DataTemplate>

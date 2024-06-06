@@ -130,6 +130,9 @@
 	  <MauiXaml Update="Windows\ViewFeedbacks.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Windows\ViewParticipant.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -140,6 +143,12 @@
 	  <Resource Include="Images\wallpaperflare.com_wallpaper (3).jpg" />
 	  <Resource Include="Images\wallpaperflare.com_wallpaper (4).jpg" />
 	  <Resource Include="Images\wallpaperflare.com_wallpaper.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Windows\ViewParticipant.xaml.cs">
+	    <DependentUpon>ViewParticipant.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
