@@ -19,7 +19,19 @@ namespace Project.Windows
         {
             if (!string.IsNullOrWhiteSpace(_user.FullName))
             {
-                UserFullName.Text = _user.FullName;
+                var fullNameParts = _user.FullName.Split(' ');
+                if (fullNameParts.Length == 3)
+                {
+                    LastNameEntry.Text = fullNameParts[0];
+                    FirstNameEntry.Text = fullNameParts[1];
+                    MiddleNameEntry.Text = fullNameParts[2];
+                }
+                else
+                {
+                    LastNameEntry.Text = _user.LastName;
+                    FirstNameEntry.Text = _user.FirstName;
+                    MiddleNameEntry.Text = _user.MiddleName;
+                }
             }
 
             if (_user.ImageData != null && _user.ImageData.Length > 0)
@@ -63,14 +75,9 @@ namespace Project.Windows
 
         private async void OnSaveB(object sender, EventArgs e)
         {
-            var fullNameParts = UserFullName.Text.Split(' ');
-            if (fullNameParts.Length == 3)
-            {
-                _user.LastName = fullNameParts[0];
-                _user.FirstName = fullNameParts[1];
-                _user.MiddleName = fullNameParts[2];
-            }
-
+            _user.LastName = LastNameEntry.Text;
+            _user.FirstName = FirstNameEntry.Text;
+            _user.MiddleName = MiddleNameEntry.Text;
             _user.Email = UserEmail.Text;
             _user.PhoneNumber = UserPhone.Text;
             _user.UserName = UserLogin.Text;
