@@ -6,7 +6,7 @@
         <StackLayout Padding="30">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Image Source="icon.png" WidthRequest="50" HeightRequest="50" VerticalOptions="Center" Margin="0,0,10,0" />
-                <Label Text="Муниципальное бюджетное учреждение Городской молодежный центр &quot;Социум&quot;"
+                <Label Text="Волонтёрский отряд &quot;Доброе сердце&quot; СПбГУТ"
                 FontSize="20"
                 TextColor="Black"
                 VerticalOptions="Center"/>
@@ -15,30 +15,30 @@
         <Label Text="Оцените мероприятие от 1 до 5:"
                FontSize="16"
                VerticalOptions="CenterAndExpand" />
-        <Slider x:Name="RatingSlider"
+                <Slider x:Name="Ratings"
                 Minimum="1"
                 Maximum="5"
                 Value="1"
                 VerticalOptions="CenterAndExpand" />
-        <Label Text="{Binding Source={x:Reference RatingSlider}, Path=Value, StringFormat='{0:F1}'}"
+                <Label Text="{Binding Source={x:Reference Ratings}, Path=Value, StringFormat='{0:F1}'}"
                FontSize="14"
                VerticalOptions="CenterAndExpand" />
         <Label Text="Что понравилось:"
                FontSize="16"
                VerticalOptions="CenterAndExpand" />
-        <Editor x:Name="LikesEditor"
+        <Editor x:Name="Like"
                 HeightRequest="100"
                 Placeholder="Напишите, что понравилось"
                 VerticalOptions="CenterAndExpand" />
         <Label Text="Что можно было бы улучшить:"
                FontSize="16"
                VerticalOptions="CenterAndExpand" />
-        <Editor x:Name="ImprovementsEditor"
+        <Editor x:Name="Improvement"
                 HeightRequest="100"
                 Placeholder="Напишите, что можно улучшить"
                 VerticalOptions="CenterAndExpand" />
         <Button Text="Оставить отзыв"
-                Clicked="OnLeaveFeedbackClicked"
+                Clicked="LeaveFeedbackB"
                 VerticalOptions="CenterAndExpand"
                 HorizontalOptions="FillAndExpand" />
     </VerticalStackLayout>

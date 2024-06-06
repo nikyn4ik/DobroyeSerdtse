@@ -25,13 +25,13 @@ namespace Project.AddEdit
                 foreach (var imagePath in imageFiles)
                 {
                     var image = new Image { Source = ImageSource.FromFile(imagePath) };
-                    image.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(() => OnImageSelected(imagePath)) });
+                    image.GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(() => ImageSelected(imagePath)) });
                     ImageStackLayout.Children.Add(image);
                 }
             }
         }
 
-        private async void OnSelectImageClicked(object sender, EventArgs e)
+        private async void SelectImageB(object sender, EventArgs e)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace Project.AddEdit
             }
         }
 
-        private async void OnImageSelected(string selectedImagePath)
+        private async void ImageSelected(string selectedImagePath)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace Project.AddEdit
             }
         }
 
-        private async void OnAddEventButtonClicked(object sender, EventArgs e)
+        private async void OnAddEventB(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(NameEntry.Text) || string.IsNullOrWhiteSpace(DescriptionEditor.Text) ||
                 DatePicker.Date == null || TimePicker.Time == null || string.IsNullOrWhiteSpace(_selectedImagePath))

@@ -5,7 +5,7 @@
     <StackLayout Padding="30">
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
             <Image Source="icon.png" WidthRequest="50" HeightRequest="50" VerticalOptions="Center" Margin="0,0,10,0" />
-            <Label Text="Муниципальное бюджетное учреждение Городской молодежный центр &quot;Социум&quot;"
+            <Label Text="Волонтёрский отряд &quot;Доброе сердце&quot; СПбГУТ"
                    FontSize="20"
                    TextColor="Black"
                    VerticalOptions="Center"/>
@@ -20,7 +20,7 @@
             <Editor x:Name="DislikesEditor" HeightRequest="100"/>
             <Label Text="Что можно улучшить?"/>
             <Editor x:Name="ImprovementsEditor" HeightRequest="100"/>
-            <Button x:Name="LeaveFeedbackButton" Text="Оставить отзыв" TextColor="White" BackgroundColor="#000099" Clicked="OnLeaveFeedbackClicked"/>
+            <Button x:Name="LeaveFeedbackButton" Text="Оставить отзыв" TextColor="White" BackgroundColor="#000099" Clicked="LeaveFeedbackB"/>
         </StackLayout>
     </StackLayout>
 </ContentPage>

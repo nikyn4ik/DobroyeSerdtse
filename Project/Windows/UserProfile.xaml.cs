@@ -1,8 +1,3 @@
-using System;
-using System.IO;
-using System.Linq;
-using Microsoft.Maui.Controls;
-using Database;
 using Database.Models;
 
 namespace Project.Windows
@@ -23,15 +18,7 @@ namespace Project.Windows
         {
             if (!string.IsNullOrWhiteSpace(_user.FullName))
             {
-                string[] fullNameParts = _user.FullName.Split(' ');
-                if (fullNameParts.Length == 3)
-                {
-                    UserFullName.Text = $"{fullNameParts[0]} {fullNameParts[1]} {fullNameParts[2]}";
-                }
-                else
-                {
-                    UserFullName.Text = _user.FullName;
-                }
+                UserFullName.Text = _user.FullName;
             }
 
             if (_user.ImageData != null && _user.ImageData.Length > 0)
@@ -46,66 +33,21 @@ namespace Project.Windows
             UserEmail.Text = _user.Email ?? string.Empty;
             UserPhone.Text = _user.PhoneNumber ?? string.Empty;
             UserLogin.Text = _user.UserName ?? string.Empty;
-            UserPassword.Text = string.Empty;
             UserDescription.Text = _user.Description ?? string.Empty;
-            UserAchievements.Text = _user.Achievements != null
-                ? string.Join(", ", _user.Achievements.Select(a => a.Title))
-                : string.Empty;
-        }
 
-        private async void OnSelectImageClicked(object sender, EventArgs e)
-        {
-            var file = await FilePicker.PickAsync(new PickOptions
+            if (_user.Role.Name == "Admin")
             {
-                FileTypes = FilePickerFileType.Images,
-                PickerTitle = "Выберите изображение"
-            });
-
-            if (file != null)
+                ProfileTitle.Text = "Профиль администратора";
+            }
+            else
             {
-                var stream = await file.OpenReadAsync();
-
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    await stream.CopyToAsync(ms);
-                    _user.ImageData = ms.ToArray();
-                }
-
-                UserPhoto.Source = ImageSource.FromStream(() => new MemoryStream(_user.ImageData));
-                UserPhoto.IsVisible = true;
+                ProfileTitle.Text = "Профиль пользователя";
             }
         }
 
-        private async void OnSaveB(object sender, EventArgs e)
+        private async void EditProfileB(object sender, EventArgs e)
         {
-            var fullNameParts = UserFullName.Text.Split(' ');
-            if (fullNameParts.Length == 3)
-            {
-                _user.LastName = fullNameParts[0];
-                _user.FirstName = fullNameParts[1];
-                _user.MiddleName = fullNameParts[2];
-            }
-
-            _user.Email = UserEmail.Text;
-            _user.PhoneNumber = UserPhone.Text;
-            _user.UserName = UserLogin.Text;
-
-            if (!string.IsNullOrWhiteSpace(UserPassword.Text))
-            {
-                _user.SetP(UserPassword.Text);
-            }
-
-            _user.Description = UserDescription.Text;
-            var achievements = UserAchievements.Text.Split(',').Select(title => new Achievement { Title = title.Trim() }).ToList();
-            _user.Achievements = achievements;
-
-            using (var context = new ApplicationContext())
-            {
-                context.Users.Update(_user);
-                await context.SaveChangesAsync();
-            }
-
-            await DisplayAlert("Успех", "Профиль успешно обновлен", "OK");
+            await Navigation.PushAsync(new EditProfile(_user));
         }
     }
 }

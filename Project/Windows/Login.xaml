@@ -7,7 +7,7 @@
         <StackLayout Padding="30">
             <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                 <Image Source="icon.png" WidthRequest="50" HeightRequest="50" VerticalOptions="Center" Margin="0,0,10,0" />
-                <Label Text="Муниципальное бюджетное учреждение Городской молодежный центр &quot;Социум&quot;"
+                <Label Text="Волонтёрский отряд &quot;Доброе сердце&quot; СПбГУТ"
                        FontSize="20"
                        TextColor="Black"
                        VerticalOptions="Center"/>
@@ -24,14 +24,14 @@
                     TextColor="White"
                     BackgroundColor="#000099"
                     Margin="0,20,0,0"
-                    Clicked="OnLoginButtonClicked"/>
+                    Clicked="LoginB"/>
 
             <Button Text="Нет аккаунта"
                     FontSize="18"
                     BackgroundColor="White"
                     TextColor="Black"
                     Margin="0,10,0,0"
-                    Clicked="OnRegisterButtonClicked"/>
+                    Clicked="RegisterB"/>
             <Label x:Name="ErrorLabel" TextColor="Red" FontSize="18" IsVisible="False"/>
         </StackLayout>
     </ScrollView>

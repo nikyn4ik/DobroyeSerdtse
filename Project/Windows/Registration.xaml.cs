@@ -68,6 +68,7 @@ namespace Project.Windows
                 await context.SaveChangesAsync();
 
                 await DisplayAlert("Успех", "Регистрация прошла успешно", "OK");
+                await Navigation.PopAsync();
             }
         }
     }

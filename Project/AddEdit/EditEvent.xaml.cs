@@ -23,7 +23,7 @@ namespace Project.AddEdit
             EventImage.Source = _event.ImagePath;
         }
 
-        private async void OnSelectImageClicked(object sender, EventArgs e)
+        private async void SelectImageB(object sender, EventArgs e)
         {
             var result = await FilePicker.PickAsync(new PickOptions
             {
@@ -46,7 +46,7 @@ namespace Project.AddEdit
             }
         }
 
-        private async void OnSaveEventB(object sender, EventArgs e)
+        private async void SaveEventB(object sender, EventArgs e)
         {
             using (var context = new ApplicationContext())
             {

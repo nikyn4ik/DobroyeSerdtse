@@ -14,7 +14,7 @@ public partial class LeaveFeedback : ContentPage
         _event = eventItem;
         _userId = userId;
     }
-    private async void OnLeaveFeedbackClicked(object sender, EventArgs e)
+    private async void LeaveFeedbackB(object sender, EventArgs e)
     {
         using (var context = new ApplicationContext())
         {

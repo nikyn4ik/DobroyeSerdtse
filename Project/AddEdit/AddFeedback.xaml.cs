@@ -13,11 +13,11 @@ namespace Project.AddEdit
             _event = eventItem;
         }
 
-        private async void OnLeaveFeedbackClicked(object sender, EventArgs e)
+        private async void LeaveFeedbackB(object sender, EventArgs e)
         {
-            double rating = RatingSlider.Value;
-            string likes = LikesEditor.Text;
-            string improvements = ImprovementsEditor.Text;
+            double rating = Ratings.Value;
+            string likes = Like.Text;
+            string improvements = Improvement.Text;
 
             var review = new Review
             {

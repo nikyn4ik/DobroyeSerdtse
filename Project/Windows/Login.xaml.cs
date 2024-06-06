@@ -8,15 +8,15 @@ namespace Project.Windows
         public Login()
         {
             InitializeComponent();
-            PasswordEntry.Completed += OnEnterPressed;
+            PasswordEntry.Completed += EnterPressed;
         }
 
-        private async void OnLoginButtonClicked(object sender, EventArgs e)
+        private async void LoginB(object sender, EventArgs e)
         {
             await PerformLogin();
         }
 
-        private async void OnEnterPressed(object sender, EventArgs e)
+        private async void EnterPressed(object sender, EventArgs e)
         {
             await PerformLogin();
         }
@@ -45,13 +45,11 @@ namespace Project.Windows
                     ErrorLabel.IsVisible = true;
                     return;
                 }
-
-                await DisplayAlert("”спех", "¬ход выполнен успешно", "OK");
                 await Navigation.PushAsync(new Menu(user));
             }
         }
 
-        private async void OnRegisterButtonClicked(object sender, EventArgs e)
+        private async void RegisterB(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new Registration());
         }
