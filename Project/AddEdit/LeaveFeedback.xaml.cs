@@ -34,10 +34,12 @@ public partial class LeaveFeedback : ContentPage
                 await context.SaveChangesAsync();
 
                 await DisplayAlert("Успех", "Ваш отзыв успешно отправлен", "OK");
+                await Navigation.PopAsync();
             }
             else
             {
                 await DisplayAlert("Ошибка", "Мероприятие не найдено", "OK");
+                await Navigation.PopAsync();
             }
         }
     }

@@ -9,7 +9,7 @@ namespace Project.Windows
 {
     public partial class Menu : ContentPage, INotifyPropertyChanged
     {
-        private readonly User _currentUser;
+        private User _currentUser;
         public ObservableCollection<EventView> Events { get; set; }
         public bool IsAdmin { get; set; }
         private string _fullName;
@@ -43,8 +43,18 @@ namespace Project.Windows
             LoadEvents();
 
             this.BindingContext = this;
+            var editProfilePage = new EditProfile(_currentUser);
         }
-
+        private void OnProfileUpdated(object sender, User updatedUser)
+        {
+            _currentUser = updatedUser;
+            FullName = updatedUser.FullName;
+            UserFullNameLabel.Text = updatedUser.FullName;
+            if (_currentUser.ImageData != null && _currentUser.ImageData.Length > 0)
+            {
+                UserPhoto.Source = ImageSource.FromStream(() => new MemoryStream(_currentUser.ImageData));
+            }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -177,14 +187,79 @@ namespace Project.Windows
             }
         }
 
+        private async void DeleteEventB(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            var eventItem = button?.BindingContext as EventView;
+            if (eventItem != null)
+            {
+                bool confirmed = await DisplayAlert("Подтверждение", "Вы уверены, что хотите удалить это мероприятие?", "Да", "Нет");
+                if (confirmed)
+                {
+                    using (var context = new ApplicationContext())
+                    {
+                        var eventEntity = await context.Events.FindAsync(eventItem.Id);
+                        if (eventEntity != null)
+                        {
+                            context.Events.Remove(eventEntity);
+                            await context.SaveChangesAsync();
+                            Events.Remove(eventItem);
+                            await DisplayAlert("Успех", "Мероприятие успешно удалено", "OK");
+                        }
+                    }
+                }
+            }
+        }
+
+        private void OnEventAdded(object sender, Event newEvent)
+        {
+            Events.Add(new EventView(newEvent, IsAdmin));
+        }
+
         private async void OnAddEventClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AddEventPage());
+            var AddEvent = new AddEvent();
+            AddEvent.EventAdded += OnEventAdded;
+            await Navigation.PushAsync(AddEvent);
         }
 
         private async void OnProfileB(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new UserProfile(_currentUser));
+            var userProfilePage = new UserProfile(_currentUser);
+            userProfilePage.ProfileUpdated += UserProfileUpdated;
+            await Navigation.PushAsync(userProfilePage);
+        }
+        private void UserProfileUpdated(object sender, User updatedUser)
+        {
+            _currentUser = updatedUser;
+            FullName = updatedUser.FullName;
+            UserFullNameLabel.Text = updatedUser.FullName;
+            if (_currentUser.ImageData != null && _currentUser.ImageData.Length > 0)
+            {
+                UserPhoto.Source = ImageSource.FromStream(() => new MemoryStream(_currentUser.ImageData));
+            }
+        }
+        private void SearchEvents(object sender, TextChangedEventArgs e)
+        {
+            FilterEvents(e.NewTextValue);
+        }
+
+        private void FilterEvents(string searchText)
+        {
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                EventList.ItemsSource = Events;
+            }
+            else
+            {
+                var filteredEvents = Events.Where(ev =>
+                    ev.Title.ToLower().Contains(searchText.ToLower()) ||
+                    ev.Description.ToLower().Contains(searchText.ToLower()) ||
+                    ev.Location.ToLower().Contains(searchText.ToLower())
+                ).ToList();
+
+                EventList.ItemsSource = new ObservableCollection<EventView>(filteredEvents);
+            }
         }
     }
 }

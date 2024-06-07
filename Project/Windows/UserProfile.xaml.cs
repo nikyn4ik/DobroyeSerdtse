@@ -4,8 +4,8 @@ namespace Project.Windows
 {
     public partial class UserProfile : ContentPage
     {
-        private readonly User _user;
-
+        private User _user;
+        public event EventHandler<User> ProfileUpdated;
         public UserProfile(User user)
         {
             InitializeComponent();
@@ -47,7 +47,15 @@ namespace Project.Windows
 
         private async void EditProfileB(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new EditProfile(_user));
+            var editProfilePage = new EditProfile(_user);
+            editProfilePage.ProfileUpdated += OnProfileUpdated;
+            await Navigation.PushAsync(editProfilePage);
+        }
+        private void OnProfileUpdated(object sender, User updatedUser)
+        {
+            _user = updatedUser;
+            InitializeUserProfile();
+            ProfileUpdated?.Invoke(this, updatedUser);
         }
     }
 }

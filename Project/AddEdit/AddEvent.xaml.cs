@@ -3,13 +3,14 @@ using Database.Models;
 
 namespace Project.AddEdit
 {
-    public partial class AddEventPage : ContentPage
+    public partial class AddEvent : ContentPage
     {
+        public event EventHandler<Event> EventAdded;
         private Event newEvent = new Event();
         private string _selectedImagePath;
         private string ImageFolderPath => Path.Combine(AppContext.BaseDirectory, "Images");
 
-        public AddEventPage()
+        public AddEvent()
         {
             InitializeComponent();
             LoadImages();
@@ -83,6 +84,7 @@ namespace Project.AddEdit
 
                 context.Events.Add(newEvent);
                 await context.SaveChangesAsync();
+                EventAdded?.Invoke(this, newEvent);
                 await DisplayAlert("Успех", "Мероприятие добавлено", "OK");
                 await Navigation.PopAsync();
             

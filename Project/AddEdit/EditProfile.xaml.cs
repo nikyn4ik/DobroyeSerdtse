@@ -6,7 +6,7 @@ namespace Project.Windows
     public partial class EditProfile : ContentPage
     {
         private readonly User _user;
-
+        public event EventHandler<User> ProfileUpdated;
         public EditProfile(User user)
         {
             InitializeComponent();
@@ -94,8 +94,7 @@ namespace Project.Windows
                 context.Users.Update(_user);
                 await context.SaveChangesAsync();
             }
-
-            await DisplayAlert("Успех", "Профиль успешно обновлен", "OK");
+            ProfileUpdated?.Invoke(this, _user);
             await Navigation.PopAsync();
         }
     }
