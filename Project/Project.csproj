@@ -37,30 +37,83 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 		<PlatformTarget>x64</PlatformTarget>
 		<PackageIcon>photo.jpg</PackageIcon>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-maccatalyst|AnyCPU'">
 	  <Optimize>False</Optimize>
 	  <NoWarn />
 	  <WarningsAsErrors />
+	  <ApplicationTitle>Dobroye Serdtse</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-maccatalyst|x64'">
+	  <Optimize>False</Optimize>
+	  <NoWarn />
+	  <WarningsAsErrors />
+	  <ApplicationTitle>Dobroye Serdtse</ApplicationTitle>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.19041.0|AnyCPU'">
 	  <Optimize>True</Optimize>
+	  <ApplicationTitle>Dobroye Serdtse</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.19041.0|x64'">
+	  <Optimize>True</Optimize>
+	  <ApplicationTitle>Dobroye Serdtse</ApplicationTitle>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-maccatalyst|AnyCPU'">
 	  <NoWarn />
 	  <WarningsAsErrors />
 	  <Optimize>False</Optimize>
+	  <ApplicationTitle>Dobroye Serdtse</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-maccatalyst|x64'">
+	  <NoWarn />
+	  <WarningsAsErrors />
+	  <Optimize>False</Optimize>
+	  <ApplicationTitle>Dobroye Serdtse</ApplicationTitle>
 	</PropertyGroup>
 
 	<PropertyGroup>
-	  <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+	  <Authors>$(Ulasik Veronika Valerievna)</Authors>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android34.0|AnyCPU'">
 	  <Optimize>True</Optimize>
+	  <ApplicationTitle>Dobroye Serdtse</ApplicationTitle>
+	  <Debugger>Native</Debugger>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-android34.0|x64'">
+	  <Optimize>True</Optimize>
+	  <ApplicationTitle>Dobroye Serdtse</ApplicationTitle>
+	  <Debugger>Native</Debugger>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android34.0|AnyCPU'">
+	  <ApplicationTitle>Dobroye Serdtse</ApplicationTitle>
+	  <Debugger>Native</Debugger>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android34.0|x64'">
+	  <ApplicationTitle>Dobroye Serdtse</ApplicationTitle>
+	  <Debugger>Native</Debugger>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationTitle>Dobroye Serdtse</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|x64'">
+	  <ApplicationTitle>Dobroye Serdtse</ApplicationTitle>
+	</PropertyGroup>
+
+	<PropertyGroup>
+	  <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -101,8 +154,8 @@
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.40" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.40" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
 	</ItemGroup>
 
@@ -111,10 +164,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="AddEdit\AddAdmin.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="AddEdit\AddEvent.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="AddEdit\AddFeedback.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="AddEdit\CreateAdmin.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="AddEdit\EditEvent.xaml">
@@ -148,16 +207,16 @@
 
 	<ItemGroup>
 	  <MauiImage Include="icon.png" />
-	  <None Include="..\photo.jpg">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
 	  <Resource Include="Images\8e34c0cf-17b0-46dd-ba26-c489f4432620.png" />
 	  <Resource Include="Images\landscape-painting-ruins-artwork-1587729-wallhere.com.jpg" />
 	  <Resource Include="Images\wallpaperflare.com_wallpaper (1).jpg" />
 	  <Resource Include="Images\wallpaperflare.com_wallpaper (3).jpg" />
 	  <Resource Include="Images\wallpaperflare.com_wallpaper (4).jpg" />
 	  <Resource Include="Images\wallpaperflare.com_wallpaper.jpg" />
+	  <Resource Include="photo.jpg">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </Resource>
 	</ItemGroup>
 
 	<ItemGroup>
