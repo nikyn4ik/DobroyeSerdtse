@@ -51,5 +51,15 @@ namespace Database
                 .WithMany(r => r.Users)
                 .HasForeignKey(u => u.RoleId);
         }
+        public async Task<bool> IsAdminUserExists()
+        {
+            var adminRole = await Roles.FirstOrDefaultAsync(r => r.Name == "Admin");
+            if (adminRole == null)
+            {
+                return false;
+            }
+
+            return await Users.AnyAsync(u => u.RoleId == adminRole.Id);
+        }
     }
 }

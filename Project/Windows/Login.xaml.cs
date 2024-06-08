@@ -5,10 +5,18 @@ namespace Project.Windows
 {
     public partial class Login : ContentPage
     {
+        private readonly ApplicationContext _context;
         public Login()
         {
             InitializeComponent();
+            _context = new ApplicationContext();
             PasswordEntry.Completed += EnterPressed;
+        }
+
+        public Login(ApplicationContext context)
+            : this() 
+        {
+            _context = context;
         }
 
         private async void LoginB(object sender, EventArgs e)

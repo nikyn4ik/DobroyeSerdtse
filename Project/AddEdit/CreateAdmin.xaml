@@ -12,10 +12,15 @@
                        VerticalOptions="Center"/>
             </StackLayout>
             <VerticalStackLayout>
-                <Entry x:Name="UserName" Placeholder="Username"/>
-                <Entry x:Name="Email" Placeholder="Email"/>
-                <Entry x:Name="Password" Placeholder="Password" IsPassword="True"/>
-                <Button Text="Create Admin" Clicked="CreateAdminBd"/>
+                <Entry x:Name="LastNameEntry" Placeholder="Фамилия"/>
+                <Entry x:Name="FirstNameEntry" Placeholder="Имя"/>
+                <Entry x:Name="MiddleNameEntry" Placeholder="Отчество"/>
+                <Entry x:Name="EmailEntry" Placeholder="Email"/>
+                <Entry x:Name="PhoneNumberEntry" Placeholder="Телефон"/>
+                <Entry x:Name="LoginEntry" Placeholder="Логин"/>
+                <Entry x:Name="PasswordEntry" Placeholder="Пароль" IsPassword="True"/>
+                <Entry x:Name="ConfirmPasswordEntry" Placeholder="Подтвердите пароль" IsPassword="True"/>
+                <Button Text="Создание администратора" FontSize="18" TextColor="White" BackgroundColor="#000099" Clicked="CreateAdminB"/>
             </VerticalStackLayout>
         </StackLayout>
     </ScrollView>
