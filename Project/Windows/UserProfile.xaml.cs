@@ -37,11 +37,11 @@ namespace Project.Windows
 
             if (_user.Role.Name == "Admin")
             {
-                ProfileTitle.Text = "Профиль администратора";
+                ProfileTitle.Text = "РџСЂРѕС„РёР»СЊ Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°";
             }
             else
             {
-                ProfileTitle.Text = "Профиль пользователя";
+                ProfileTitle.Text = "РџСЂРѕС„РёР»СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ";
             }
         }
 

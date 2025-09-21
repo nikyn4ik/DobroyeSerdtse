@@ -31,7 +31,7 @@ public partial class ViewParticipant : ContentPage
         var user = button?.BindingContext as User;
         if (user != null)
         {
-            var confirm = await DisplayAlert("Удаление участника", $"Вы уверены, что хотите удалить участника {user.FullName} с мероприятия?", "Да", "Отмена");
+            var confirm = await DisplayAlert("РЈРґР°Р»РµРЅРёРµ СѓС‡Р°СЃС‚РЅРёРєР°", $"Р’С‹ СѓРІРµСЂРµРЅС‹, С‡С‚Рѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ СѓС‡Р°СЃС‚РЅРёРєР° {user.FullName} СЃ РјРµСЂРѕРїСЂРёСЏС‚РёСЏ?", "Р”Р°", "РћС‚РјРµРЅР°");
             if (confirm)
             {
                 using (var context = new ApplicationContext())
@@ -41,12 +41,12 @@ public partial class ViewParticipant : ContentPage
                     {
                         context.UserEvents.Remove(userEvent);
                         await context.SaveChangesAsync();
-                        await DisplayAlert("Успех", $"Участник {user.FullName} успешно удален с мероприятия", "OK");
+                        await DisplayAlert("РЈСЃРїРµС…", $"РЈС‡Р°СЃС‚РЅРёРє {user.FullName} СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅ СЃ РјРµСЂРѕРїСЂРёСЏС‚РёСЏ", "OK");
                         LoadParticipants(_event.Id);
                     }
                     else
                     {
-                        await DisplayAlert("Ошибка", $"Участник {user.FullName} не найден на мероприятии", "OK");
+                        await DisplayAlert("РћС€РёР±РєР°", $"РЈС‡Р°СЃС‚РЅРёРє {user.FullName} РЅРµ РЅР°Р№РґРµРЅ РЅР° РјРµСЂРѕРїСЂРёСЏС‚РёРё", "OK");
                     }
                 }
             }

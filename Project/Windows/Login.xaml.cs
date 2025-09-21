@@ -38,7 +38,7 @@ namespace Project.Windows
 
                 if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
                 {
-                    ErrorLabel.Text = "Логин и пароль должны быть заполнены.";
+                    ErrorLabel.Text = "Р›РѕРіРёРЅ Рё РїР°СЂРѕР»СЊ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Р·Р°РїРѕР»РЅРµРЅС‹.";
                     ErrorLabel.IsVisible = true;
                     return;
                 }
@@ -49,7 +49,7 @@ namespace Project.Windows
 
                 if (user == null || !user.VerifyP(password))
                 {
-                    ErrorLabel.Text = "Неверный логин или пароль.";
+                    ErrorLabel.Text = "РќРµРІРµСЂРЅС‹Р№ Р»РѕРіРёРЅ РёР»Рё РїР°СЂРѕР»СЊ.";
                     ErrorLabel.IsVisible = true;
                     return;
                 }

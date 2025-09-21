@@ -29,7 +29,7 @@ public partial class CreateAdmin : ContentPage
 
         if (password != confirmPassword)
         {
-            await DisplayAlert("Ошибка", "Пароли не совпадают.", "OK");
+            await DisplayAlert("СњС€РёР±РєР°", "С•Р°СЂРѕР»Рё РЅРµ СЃРѕРІРїР°РґР°СЋС‚.", "OK");
             return;
         }
 
@@ -52,7 +52,7 @@ public partial class CreateAdmin : ContentPage
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
 
-        await DisplayAlert("Успех", "Администратор добавлен в систему!", "OK");
+        await DisplayAlert("вЂќСЃРїРµС…", "СРґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂ РґРѕР±Р°РІР»РµРЅ РІ СЃРёСЃС‚РµРјСѓ!", "OK");
         Application.Current.MainPage = new NavigationPage(new Login(_context));
     }
 }

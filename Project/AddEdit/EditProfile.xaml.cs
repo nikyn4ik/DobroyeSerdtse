@@ -55,7 +55,7 @@ namespace Project.Windows
             var file = await FilePicker.PickAsync(new PickOptions
             {
                 FileTypes = FilePickerFileType.Images,
-                PickerTitle = "Выберите изображение"
+                PickerTitle = "Р’С‹Р±РµСЂРёС‚Рµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ"
             });
 
             if (file != null)

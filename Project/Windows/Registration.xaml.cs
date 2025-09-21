@@ -30,13 +30,13 @@ namespace Project.Windows
                     string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password) ||
                     string.IsNullOrWhiteSpace(confirmPassword))
                 {
-                    ErrorLabel.Text = "Все поля должны быть заполнены.";
+                    ErrorLabel.Text = "Р’СЃРµ РїРѕР»СЏ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ Р·Р°РїРѕР»РЅРµРЅС‹.";
                     ErrorLabel.IsVisible = true;
                     return;
                 }
                 if (password != confirmPassword)
                 {
-                    ErrorLabel.Text = "Пароли не совпадают.";
+                    ErrorLabel.Text = "РџР°СЂРѕР»Рё РЅРµ СЃРѕРІРїР°РґР°СЋС‚.";
                     ErrorLabel.IsVisible = true;
                     return;
                 }
@@ -46,7 +46,7 @@ namespace Project.Windows
 
                 if (existingUser != null)
                 {
-                    ErrorLabel.Text = "Пользователь с таким логином или email уже существует.";
+                    ErrorLabel.Text = "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃ С‚Р°РєРёРј Р»РѕРіРёРЅРѕРј РёР»Рё email СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚.";
                     ErrorLabel.IsVisible = true;
                     return;
                 }
@@ -67,7 +67,7 @@ namespace Project.Windows
                 context.Users.Add(newUser);
                 await context.SaveChangesAsync();
 
-                await DisplayAlert("Успех", "Регистрация прошла успешно", "OK");
+                await DisplayAlert("РЈСЃРїРµС…", "Р РµРіРёСЃС‚СЂР°С†РёСЏ РїСЂРѕС€Р»Р° СѓСЃРїРµС€РЅРѕ", "OK");
                 await Navigation.PopAsync();
             }
         }

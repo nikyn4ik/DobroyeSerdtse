@@ -22,7 +22,7 @@ namespace Project.AddEdit
             var review = new Review
             {
                 EventId = _event.Id,
-                Content = $"Оценка: {rating:F1}, Понравилось: {likes}, Улучшения: {improvements}",
+                Content = $"РћС†РµРЅРєР°: {rating:F1}, РџРѕРЅСЂР°РІРёР»РѕСЃСЊ: {likes}, РЈР»СѓС‡С€РµРЅРёСЏ: {improvements}",
                 Date = DateTime.Now
             };
 
@@ -32,7 +32,7 @@ namespace Project.AddEdit
                 await context.SaveChangesAsync();
             }
 
-            await DisplayAlert("Успех", "Отзыв успешно оставлен", "OK");
+            await DisplayAlert("РЈСЃРїРµС…", "РћС‚Р·С‹РІ СѓСЃРїРµС€РЅРѕ РѕСЃС‚Р°РІР»РµРЅ", "OK");
 
             await Navigation.PopAsync();
         }

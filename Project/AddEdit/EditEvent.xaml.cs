@@ -28,7 +28,7 @@ namespace Project.AddEdit
             var result = await FilePicker.PickAsync(new PickOptions
             {
                 FileTypes = FilePickerFileType.Images,
-                PickerTitle = "Выберите изображение для события"
+                PickerTitle = "Р’С‹Р±РµСЂРёС‚Рµ РёР·РѕР±СЂР°Р¶РµРЅРёРµ РґР»СЏ СЃРѕР±С‹С‚РёСЏ"
             });
 
             if (result != null)
@@ -60,7 +60,7 @@ namespace Project.AddEdit
 
                     context.Events.Update(eventToUpdate);
                     await context.SaveChangesAsync();
-                    await DisplayAlert("Успех", "Изменения сохранены", "OK");
+                    await DisplayAlert("РЈСЃРїРµС…", "РР·РјРµРЅРµРЅРёСЏ СЃРѕС…СЂР°РЅРµРЅС‹", "OK");
                     await Navigation.PopAsync();
                 }
             }

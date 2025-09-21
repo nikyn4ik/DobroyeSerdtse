@@ -93,7 +93,7 @@ namespace Project.Windows
 
                     if (existingUserEvent != null)
                     {
-                        await DisplayAlert("Ошибка", "Вы уже зарегистрированы на это мероприятие", "OK");
+                        await DisplayAlert("РћС€РёР±РєР°", "Р’С‹ СѓР¶Рµ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅС‹ РЅР° СЌС‚Рѕ РјРµСЂРѕРїСЂРёСЏС‚РёРµ", "OK");
                         return;
                     }
 
@@ -105,7 +105,7 @@ namespace Project.Windows
 
                     context.UserEvents.Add(userEvent);
                     await context.SaveChangesAsync();
-                    await DisplayAlert("Успех", "Вы успешно откликнулись на мероприятие", "OK");
+                    await DisplayAlert("РЈСЃРїРµС…", "Р’С‹ СѓСЃРїРµС€РЅРѕ РѕС‚РєР»РёРєРЅСѓР»РёСЃСЊ РЅР° РјРµСЂРѕРїСЂРёСЏС‚РёРµ", "OK");
                 }
             }
         }
@@ -177,7 +177,7 @@ namespace Project.Windows
 
                         if (existingReview != null)
                         {
-                            await DisplayAlert("Ошибка", "Вы уже оставили отзыв на это мероприятие", "OK");
+                            await DisplayAlert("РћС€РёР±РєР°", "Р’С‹ СѓР¶Рµ РѕСЃС‚Р°РІРёР»Рё РѕС‚Р·С‹РІ РЅР° СЌС‚Рѕ РјРµСЂРѕРїСЂРёСЏС‚РёРµ", "OK");
                             return;
                         }
 
@@ -193,7 +193,7 @@ namespace Project.Windows
             var eventItem = button?.BindingContext as EventView;
             if (eventItem != null)
             {
-                bool confirmed = await DisplayAlert("Подтверждение", "Вы уверены, что хотите удалить это мероприятие?", "Да", "Нет");
+                bool confirmed = await DisplayAlert("РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ", "Р’С‹ СѓРІРµСЂРµРЅС‹, С‡С‚Рѕ С…РѕС‚РёС‚Рµ СѓРґР°Р»РёС‚СЊ СЌС‚Рѕ РјРµСЂРѕРїСЂРёСЏС‚РёРµ?", "Р”Р°", "РќРµС‚");
                 if (confirmed)
                 {
                     using (var context = new ApplicationContext())
@@ -204,7 +204,7 @@ namespace Project.Windows
                             context.Events.Remove(eventEntity);
                             await context.SaveChangesAsync();
                             Events.Remove(eventItem);
-                            await DisplayAlert("Успех", "Мероприятие успешно удалено", "OK");
+                            await DisplayAlert("РЈСЃРїРµС…", "РњРµСЂРѕРїСЂРёСЏС‚РёРµ СѓСЃРїРµС€РЅРѕ СѓРґР°Р»РµРЅРѕ", "OK");
                         }
                     }
                 }

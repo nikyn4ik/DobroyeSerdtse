@@ -33,12 +33,12 @@ public partial class LeaveFeedback : ContentPage
                 context.Reviews.Add(review);
                 await context.SaveChangesAsync();
 
-                await DisplayAlert("Успех", "Ваш отзыв успешно отправлен", "OK");
+                await DisplayAlert("вЂќСЃРїРµС…", "В¬Р°С€ РѕС‚Р·С‹РІ СѓСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІР»РµРЅ", "OK");
                 await Navigation.PopAsync();
             }
             else
             {
-                await DisplayAlert("Ошибка", "Мероприятие не найдено", "OK");
+                await DisplayAlert("СњС€РёР±РєР°", "С›РµСЂРѕРїСЂРёВ¤С‚РёРµ РЅРµ РЅР°Р№РґРµРЅРѕ", "OK");
                 await Navigation.PopAsync();
             }
         }

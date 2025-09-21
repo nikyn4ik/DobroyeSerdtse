@@ -45,7 +45,7 @@ namespace Project.AddEdit
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Ошибка", $"Не удалось выбрать изображение: {ex.Message}", "OK");
+                await DisplayAlert("РћС€РёР±РєР°", $"РќРµ СѓРґР°Р»РѕСЃСЊ РІС‹Р±СЂР°С‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ: {ex.Message}", "OK");
             }
         }
 
@@ -54,11 +54,11 @@ namespace Project.AddEdit
             try
             {
                 _selectedImagePath = selectedImagePath;
-                await DisplayAlert("Успех", "Изображение выбрано", "OK");
+                await DisplayAlert("РЈСЃРїРµС…", "РР·РѕР±СЂР°Р¶РµРЅРёРµ РІС‹Р±СЂР°РЅРѕ", "OK");
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Ошибка", $"Не удалось выбрать изображение: {ex.Message}", "OK");
+                await DisplayAlert("РћС€РёР±РєР°", $"РќРµ СѓРґР°Р»РѕСЃСЊ РІС‹Р±СЂР°С‚СЊ РёР·РѕР±СЂР°Р¶РµРЅРёРµ: {ex.Message}", "OK");
             }
         }
 
@@ -67,7 +67,7 @@ namespace Project.AddEdit
             if (string.IsNullOrWhiteSpace(NameEntry.Text) || string.IsNullOrWhiteSpace(DescriptionEditor.Text) ||
                 DatePicker.Date == null || TimePicker.Time == null || string.IsNullOrWhiteSpace(_selectedImagePath))
             {
-                await DisplayAlert("Ошибка", "Заполните все обязательные поля", "OK");
+                await DisplayAlert("РћС€РёР±РєР°", "Р—Р°РїРѕР»РЅРёС‚Рµ РІСЃРµ РѕР±СЏР·Р°С‚РµР»СЊРЅС‹Рµ РїРѕР»СЏ", "OK");
                 return;
             }
 
@@ -85,7 +85,7 @@ namespace Project.AddEdit
                 context.Events.Add(newEvent);
                 await context.SaveChangesAsync();
                 EventAdded?.Invoke(this, newEvent);
-                await DisplayAlert("Успех", "Мероприятие добавлено", "OK");
+                await DisplayAlert("РЈСЃРїРµС…", "РњРµСЂРѕРїСЂРёСЏС‚РёРµ РґРѕР±Р°РІР»РµРЅРѕ", "OK");
                 await Navigation.PopAsync();
             
             }}
