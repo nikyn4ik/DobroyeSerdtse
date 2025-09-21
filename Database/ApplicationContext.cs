@@ -14,7 +14,7 @@ namespace Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=DobroyeSerdtse;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=localhost;Database=DobroyeSerdtse;Trusted_Connection=True;TrustServerCertificate=True");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
