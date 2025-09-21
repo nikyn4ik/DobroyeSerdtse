@@ -38,6 +38,8 @@
 		<PlatformTarget>x64</PlatformTarget>
 		<PackageIcon>photo.jpg</PackageIcon>
 		<Platforms>AnyCPU;x64</Platforms>
+		<ApplicationIcon>photo.ico</ApplicationIcon>
+		<NeutralLanguage>ru</NeutralLanguage>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-maccatalyst|AnyCPU'">

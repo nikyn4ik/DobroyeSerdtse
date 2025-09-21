@@ -20,14 +20,18 @@ namespace Project
         {
             base.OnStart();
 
+            Page startPage;
+
             if (!await _context.IsAdminUserExists())
             {
-                MainPage = new CreateAdmin(_context);
+                startPage = new CreateAdmin(_context);
             }
             else
             {
-                MainPage = new Login(_context);
+                startPage = new Login(_context);
             }
+
+            MainPage = new NavigationPage(startPage);
         }
     }
 }
